@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tausi · Das Weltgemälde</title>
+<meta name="description" content="Jeder Mensch setzt einen Pixel für 0,001 € – zusammen entsteht ein Weltgemälde, und das KI-Wesen Tausi erwacht zum Leben. Vorschau, noch keine echten Zahlungen.">
+<meta name="theme-color" content="#fffaf2">
+<meta property="og:title" content="Tausi · Das Weltgemälde">
+<meta property="og:description" content="1 Pixel = 0,001 €. Ein Kunstwerk aus den Pixeln aller Menschen.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23fffaf2'/%3E%3Crect x='2' y='2' width='4' height='4' fill='%23ff5a5f'/%3E%3Crect x='6' y='2' width='4' height='4' fill='%23ffb400'/%3E%3Crect x='10' y='2' width='4' height='4' fill='%2300b894'/%3E%3Crect x='2' y='6' width='4' height='4' fill='%2300a8e8'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23b14aed'/%3E%3Crect x='10' y='6' width='4' height='4' fill='%23ff3d9a'/%3E%3Crect x='2' y='10' width='12' height='4' fill='%233d5afe'/%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#fffaf2; --paper2:#fff3e2; --card:#ffffff; --ink:#1f1b2e; --ink2:#4a4560; --mut:#7a7590; --line:rgba(31,27,46,.10);
+  --coral:#ff5a5f; --mango:#ffb400; --sun:#ffd93d; --jade:#00b894; --lagoon:#00a8e8; --indigo:#3d5afe; --orchid:#b14aed; --magenta:#ff3d9a; --earth:#c0703f;
+  --rainbow:linear-gradient(90deg,#ff5a5f,#ffb400,#ffd93d,#00b894,#00a8e8,#3d5afe,#b14aed,#ff3d9a);
+  --radius:22px; --shadow:0 12px 40px rgba(74,52,20,.10),0 2px 6px rgba(74,52,20,.06);
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Helvetica Neue",Arial,sans-serif;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Noto Serif",serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.45}
+body{min-height:100vh;background:var(--paper);padding-bottom:calc(78px + env(safe-area-inset-bottom));position:relative;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;
+  background:radial-gradient(40% 30% at 8% 12%,rgba(255,90,95,.16),transparent 70%),radial-gradient(35% 30% at 92% 8%,rgba(0,168,232,.16),transparent 70%),
+  radial-gradient(40% 35% at 85% 70%,rgba(177,74,237,.12),transparent 70%),radial-gradient(40% 35% at 10% 80%,rgba(0,184,148,.13),transparent 70%),radial-gradient(30% 25% at 50% 45%,rgba(255,217,61,.12),transparent 70%)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select,textarea{font:inherit;color:var(--ink)}
+a{color:var(--indigo)}
+.hidden{display:none!important}
+
+/* Kopf */
+.top{position:sticky;top:0;z-index:30}
+.band{background:#fff4d6;color:#5a4300;border-bottom:1px solid #e8d48a;padding:7px 14px;font-weight:600;font-size:13.5px;text-align:center}
+.band details{display:inline-block;font-weight:400;margin-inline-start:6px}
+.band summary{cursor:pointer;text-decoration:underline}
+.band details span{display:block;max-width:640px;margin:6px auto 0;text-align:start}
+header{display:flex;align-items:center;gap:10px;padding:10px 16px;background:rgba(255,250,242,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:23px;font-weight:700;letter-spacing:.2px}
+.logo{width:32px;height:32px;border-radius:9px;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:4px;background:#fff;box-shadow:var(--shadow)}
+.logo i{border-radius:2px}
+.spacer{flex:1}
+.chip{display:flex;align-items:center;gap:7px;padding:7px 12px;border-radius:99px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:14px;box-shadow:0 2px 8px rgba(74,52,20,.06)}
+.chip .dot{width:11px;height:11px;border-radius:3px;background:var(--rainbow)}
+.langbtn{padding:7px 10px;border-radius:99px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:13px}
+
+/* Navigation */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+nav.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;color:var(--mut);font-size:11.5px;font-weight:700}
+nav.tabs .ic{font-size:21px;line-height:1;filter:grayscale(.9);opacity:.7}
+nav.tabs button.on{color:var(--ink)}
+nav.tabs button.on .ic{filter:none;opacity:1;transform:scale(1.12)}
+
+main{max-width:1180px;margin:0 auto;padding:16px}
+.view{display:none}
+.view.on{display:block;animation:fade .35s ease both}
+@keyframes fade{from{opacity:.001;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+h1,h2,h3{margin:0}
+h1{font-family:var(--serif);font-size:36px;line-height:1.05;font-weight:700}
+h2{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:4px}
+h3{font-size:15.5px;font-weight:800;margin-bottom:8px}
+.sub{color:var(--ink2);font-size:14.5px}
+.small{font-size:12.5px;color:var(--mut)}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.kicker{display:inline-block;font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;background:var(--rainbow);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:6px}
+
+/* Weltgemälde */
+.home{display:grid;gap:14px}
+.hero{padding:18px 18px 14px}
+.frame{position:relative;margin:14px -6px 0;padding:8px;border-radius:18px;background:linear-gradient(135deg,#f6e2c3,#fff3e0 40%,#f1d6b0);box-shadow:inset 0 0 0 1px rgba(150,100,40,.18),0 10px 30px rgba(120,80,20,.15)}
+#bild{display:block;width:100%;border-radius:10px;background:#fffaf2;cursor:crosshair;touch-action:manipulation}
+.bildinfo{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--ink2);font-weight:600}
+.progress{height:8px;border-radius:99px;background:rgba(31,27,46,.07);overflow:hidden}
+.progress i{display:block;height:100%;border-radius:99px;background:var(--rainbow);transition:width .6s ease}
+.place-bar{margin-top:12px;background:#fff8e6;border:1.5px solid var(--mango);border-radius:16px;padding:10px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.place-bar b{flex:1 1 100%;font-size:14px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:14px;font-weight:800;font-size:15px;background:#fff;border:1px solid var(--line);transition:transform .12s, opacity .2s;box-shadow:0 2px 8px rgba(74,52,20,.06)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.main{background:linear-gradient(135deg,#ff5a5f,#ff3d9a 45%,#b14aed);color:#fff;border:0;box-shadow:0 10px 26px rgba(255,61,154,.30)}
+.btn.ghost{background:transparent;box-shadow:none;border-color:transparent}
+.btn.small{padding:8px 12px;font-size:13.5px;border-radius:11px}
+.btn.block{width:100%}
+.btn.danger{color:#c62828}
+.cta{width:100%;padding:17px;border-radius:18px;font-size:20px;flex-direction:column;gap:2px}
+.cta small{font-size:13px;font-weight:600;opacity:.92}
+.fx{margin-top:8px;text-align:center;font-size:13px;color:var(--ink2);font-weight:600}
+.legal-note{margin-top:8px;text-align:center;font-size:12px;color:var(--mut)}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{border-radius:16px;padding:12px 14px;background:var(--paper)}
+.stat:nth-child(2){background:#fff0f0}.stat:nth-child(3){background:#eaf8f4}.stat:nth-child(4){background:#eef4ff}.stat:nth-child(5){background:#fdf0ff}
+.stat .num{font-family:var(--serif);font-size:26px;font-weight:700;line-height:1.1;word-break:break-word}
+.stat .lbl{font-size:12.5px;color:var(--ink2);font-weight:700;margin-top:2px}
+.stat.wide{grid-column:1/-1;background:linear-gradient(120deg,#fff4d6,#ffe3ef 50%,#e4ecff)}
+.stat.wide .num{font-size:30px}
+
+.feed{list-style:none;margin:0;padding:0}
+.feed li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.feed li:first-child{border-top:0}
+.px{width:24px;height:24px;border-radius:7px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08),0 3px 8px rgba(0,0,0,.08)}
+.feed .who{font-weight:700;font-size:14.5px}
+.feed .msg{font-size:14px;color:var(--ink2)}
+.feed .meta{font-size:12px;color:var(--mut)}
+.cc{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.5px;padding:1px 5px;border-radius:5px;background:var(--paper2);color:var(--ink2);vertical-align:1px}
+.tag-demo{font-size:10px;font-weight:800;color:#8a6a00;background:#fff4d6;border-radius:5px;padding:1px 5px;margin-inline-start:4px}
+.report{margin-inline-start:auto;font-size:12px;color:var(--mut);padding:2px 6px;border-radius:6px;white-space:nowrap}
+.report:hover{color:#c62828}
+
+/* Tausi */
+.tausi-card{padding:0;overflow:hidden}
+.tausi-bg{position:relative;overflow:hidden;background:linear-gradient(180deg,#fff6e8,#ffffff)}
+#bildBlur{position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);filter:blur(14px) saturate(1.25);opacity:.45;pointer-events:none}
+.tausi-top{position:relative;display:flex;align-items:flex-start;justify-content:space-between;padding:16px 18px 0}
+.stage-name{font-family:var(--serif);font-size:32px;font-weight:700;line-height:1.05}
+.stage-name small{display:block;font-family:var(--font);font-size:13px;font-weight:800;color:var(--orchid);letter-spacing:.3px;margin-top:4px}
+.ki-badge{font-size:11.5px;font-weight:800;color:#5b2a86;background:#f3e6ff;padding:4px 9px;border-radius:99px;white-space:nowrap}
+.bubble-row{position:relative;min-height:74px;display:flex;align-items:flex-end;justify-content:center;padding:8px 18px 0}
+.bubble{position:relative;max-width:100%;background:#fff;color:var(--ink);font-weight:700;font-size:15px;padding:10px 14px;border-radius:16px;box-shadow:0 8px 24px rgba(74,52,20,.16);text-align:center;transition:opacity .35s, transform .35s;margin-bottom:4px}
+.bubble:after{content:"";position:absolute;left:50%;bottom:-7px;width:14px;height:14px;background:#fff;transform:translateX(-50%) rotate(45deg);border-radius:3px}
+.bubble.off{opacity:0;transform:translateY(-6px)}
+.canvas-wrap{position:relative;margin:0 auto;width:100%;max-width:440px;aspect-ratio:1/1}
+#wesen{width:100%;height:100%;display:block;cursor:pointer}
+.tausi-foot{position:relative;padding:4px 18px 18px;background:#fff}
+.meters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.meter{background:var(--paper);border-radius:14px;padding:10px 12px}
+.meter .row{font-size:13px;color:var(--ink2);font-weight:700}
+.meter .val{margin-inline-start:auto;color:var(--ink)}
+.meter .progress{height:7px;margin-top:6px}
+.meter.hunger .progress i{background:linear-gradient(90deg,#ff8a5b,#ffb400)}
+.meter.joy .progress i{background:linear-gradient(90deg,#b14aed,#ff3d9a)}
+.mood{margin-top:10px;font-size:14px;color:var(--ink2)}
+.mood b{color:var(--ink)}
+.steps{display:flex;gap:4px;margin-top:12px}
+.steps i{flex:1;height:6px;border-radius:9px;background:rgba(31,27,46,.08)}
+.steps i.on{background:var(--rainbow)}
+
+/* Spiel */
+.game-wrap{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#dff3ff,#fff5e6 70%,#ffe6cc);aspect-ratio:3/4;max-height:68vh;margin:0 auto;touch-action:none;user-select:none}
+#spiel{width:100%;height:100%;display:block}
+.game-hud{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:6px;padding:10px;font-weight:800;font-size:14px;pointer-events:none}
+.hud-pill{background:rgba(255,255,255,.88);border-radius:99px;padding:5px 9px;box-shadow:0 2px 8px rgba(0,0,0,.08);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.wish{width:18px;height:18px;border-radius:5px;display:inline-block;box-shadow:inset 0 0 0 2px rgba(255,255,255,.8),0 0 0 1px rgba(0,0,0,.1)}
+.game-over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(255,250,242,.86);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);text-align:center;padding:20px}
+.game-over .big{font-family:var(--serif);font-size:44px;font-weight:700}
+.tasks{list-style:none;margin:0;padding:0}
+.tasks li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-weight:600;font-size:14.5px}
+.tasks li:first-child{border-top:0}
+.tasks .ck{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);display:grid;place-items:center;flex:none;font-size:14px}
+.tasks li.done .ck{background:var(--jade);border-color:var(--jade);color:#fff}
+.tasks li.done span{color:var(--mut);text-decoration:line-through}
+.stars{font-size:20px;font-weight:800}
+
+/* Welt */
+#map{width:100%;height:auto;display:block;border-radius:14px;background:linear-gradient(180deg,#eaf6ff,#f6fbff)}
+#map .land{fill:#c9d8e8}
+#map .hot{cursor:pointer}
+#map .hot.pulse{animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+.seg{display:flex;background:var(--paper);border-radius:12px;padding:3px;gap:3px;margin:10px 0}
+.seg button{flex:1;padding:8px;border-radius:9px;font-size:13.5px;font-weight:700;color:var(--ink2)}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.rank{list-style:none;margin:0;padding:0}
+.rank li{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.rank li:first-child{border-top:0}
+.rank .pos{font-weight:800;color:var(--mut);text-align:center}
+.rank li:nth-child(1) .pos{color:var(--mango);font-size:18px}
+.rank .bar{height:6px;border-radius:9px;background:var(--rainbow);margin-top:5px}
+.rank .v{font-weight:800;font-size:14px;text-align:end}
+.rank .v small{display:block;font-weight:600;color:var(--mut);font-size:11.5px}
+
+/* Ich */
+.balance{text-align:center;padding:24px 18px}
+.balance .big{font-family:var(--serif);font-size:52px;font-weight:700;line-height:1;background:linear-gradient(135deg,#ff5a5f,#b14aed 60%,#3d5afe);-webkit-background-clip:text;background-clip:text;color:transparent}
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pack{position:relative;padding:18px 6px 12px;border-radius:16px;border:2px solid var(--line);background:#fff;text-align:center}
+.pack.on{border-color:var(--magenta);background:#fff3f9}
+.pack .p{font-family:var(--serif);font-size:25px;font-weight:700}
+.pack .n{font-size:12.5px;color:var(--ink2);font-weight:700}
+.pack .tag{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:800;background:var(--magenta);color:#fff;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.pack .tag.b{background:var(--jade)}
+.info-box{border-radius:14px;padding:12px 14px;font-size:13.5px;background:#eaf6ff;color:#0c3a5a}
+.warn-box{border-radius:14px;padding:12px 14px;font-size:13.5px;background:#fff4d6;color:#5a4300}
+.hist{list-style:none;margin:0;padding:0}
+.hist li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.hist li:first-child{border-top:0}
+.hist .amt{margin-inline-start:auto;font-weight:800;white-space:nowrap}
+.hist .plus{color:#00866b}
+.ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--paper);flex:none;font-size:16px}
+.share-text{width:100%;min-height:110px;resize:vertical;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px}
+.legal-links{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;font-weight:700}
+footer{max-width:1180px;margin:0 auto;padding:6px 16px 26px;text-align:center;font-size:12.5px;color:var(--mut)}
+footer a{margin:0 7px;color:var(--ink2)}
+
+/* Formulare */
+label.f{display:block;margin:14px 0 6px;font-size:13px;font-weight:800;color:var(--ink2)}
+.inp{width:100%;padding:12px 14px;border-radius:12px;background:var(--paper);border:1.5px solid var(--line);outline:none}
+.inp:focus{border-color:var(--orchid)}
+.check{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:13.5px;color:var(--ink2);cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--magenta);flex:none;margin-top:1px}
+.swatches{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.sw{aspect-ratio:1;border-radius:10px;border:3px solid #fff;box-shadow:0 0 0 1px var(--line),0 2px 6px rgba(0,0,0,.08)}
+.sw.on{box-shadow:0 0 0 3px var(--ink);transform:scale(1.06)}
+.sw.custom{background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red);position:relative;overflow:hidden}
+.sw.custom input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.motif-btn{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:#fff;font-weight:700;font-size:14px;margin-bottom:10px}
+.motif-btn.on{border-color:var(--ink)}
+.motif-btn .px{width:26px;height:26px}
+.counts{display:flex;gap:8px}
+.counts button{flex:1;padding:10px 6px;border-radius:12px;border:2px solid var(--line);font-weight:800;font-size:13.5px;background:#fff}
+.counts button.on{border-color:var(--magenta);background:#fff3f9}
+
+/* Bottom-Sheet */
+.sheet{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center}
+.sheet-bg{position:absolute;inset:0;background:rgba(31,27,46,.35);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.sheet-panel{position:relative;width:100%;max-width:560px;max-height:88vh;overflow:auto;background:#fff;border-radius:24px 24px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));animation:up .3s cubic-bezier(.2,.9,.3,1)}
+.sheet-panel:before{content:"";display:block;width:42px;height:5px;border-radius:9px;background:rgba(31,27,46,.15);margin:-8px auto 12px}
+.sheet-x{position:absolute;inset-inline-end:12px;top:12px;width:34px;height:34px;border-radius:50%;background:var(--paper);font-size:18px;color:var(--ink2)}
+@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.lang-grid button{padding:12px;border-radius:12px;border:2px solid var(--line);font-weight:700;text-align:start}
+.lang-grid button.on{border-color:var(--magenta);background:#fff3f9}
+
+#toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);z-index:80;background:var(--ink);color:#fff;font-weight:700;font-size:14.5px;padding:11px 16px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:all .3s;max-width:calc(100% - 32px);text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%)}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:rot .8s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+@media (min-width:960px){
+  body{padding-bottom:0}
+  header{padding:12px 28px}
+  nav.tabs{position:static;background:none;border:0;padding:0;gap:2px;justify-content:center;backdrop-filter:none;-webkit-backdrop-filter:none}
+  nav.tabs button{flex:none;flex-direction:row;gap:7px;padding:8px 14px;font-size:14px}
+  nav.tabs .ic{font-size:17px}
+  nav.tabs button.on{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  .head-nav{display:flex!important}
+  main{padding:24px 28px}
+  .home{grid-template-columns:1.35fr 1fr;align-items:start}
+  .home .side{position:sticky;top:120px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+  .two.wide-left{grid-template-columns:1.3fr 1fr}
+  .sheet{align-items:center}
+  .sheet-panel{border-radius:24px}
+  .sheet-panel:before{display:none}
+  #toast{bottom:28px}
+  h1{font-size:44px}
+}
+@media (max-width:380px){h1{font-size:30px}.stage-name{font-size:27px}.stat .num{font-size:22px}.swatches{grid-template-columns:repeat(6,1fr)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="band" id="vorschau-band" role="status"><span data-t="band_main"></span>
+    <details><summary data-t="band_more"></summary><span data-t="band_text"></span></details>
+  </div>
+  <header>
+    <div class="brand">
+      <div class="logo"><i style="background:#ff5a5f"></i><i style="background:#ffb400"></i><i style="background:#00b894"></i><i style="background:#00a8e8"></i><i style="background:#b14aed"></i><i style="background:#ff3d9a"></i><i style="background:#3d5afe"></i><i style="background:#ffd93d"></i><i style="background:#c0703f"></i></div>
+      <span class="brandName">Tausi</span>
+    </div>
+    <div class="spacer"></div>
+    <div class="head-nav hidden" id="headNavSlot"></div>
+    <div class="spacer"></div>
+    <button class="langbtn" id="langBtn" aria-label="Sprache / Language">🌐 <span id="langCode">DE</span></button>
+    <button class="chip" id="balanceChip"><span class="dot"></span><span id="balanceChipVal">0</span></button>
+  </header>
+</div>
+
+<main>
+  <!-- BILD -->
+  <section class="view on" id="v-bild">
+    <div class="home">
+      <div>
+        <div class="card hero">
+          <span class="kicker" data-t="hero_kicker"></span>
+          <h1 data-t="hero_title"></h1>
+          <div class="sub" style="margin-top:8px" data-t="hero_sub"></div>
+          <div class="frame"><canvas id="bild" aria-label="Weltgemälde"></canvas></div>
+          <div class="bildinfo"><span id="bildName"></span><span id="bildCount"></span></div>
+          <div class="progress" style="margin-top:6px"><i id="bildBar"></i></div>
+          <div class="place-bar hidden" id="placeBar">
+            <b data-t="place_hint"></b>
+            <button class="btn small" id="placeRandom">🎲 <span data-t="random"></span></button>
+            <div class="spacer"></div>
+            <button class="btn small ghost" id="placeCancel" data-t="cancel"></button>
+          </div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card">
+          <button class="btn main cta" id="ctaSet"><span>🎨 <span data-t="cta"></span> · <span class="priceTxt">0,001 €</span></span><small id="ctaSub"></small></button>
+          <div class="fx" id="fxLine"></div>
+          <div class="legal-note" data-t="legal_note"></div>
+        </div>
+        <div class="card">
+          <div class="stats">
+            <div class="stat wide"><div class="num" id="sPct">0 %</div><div class="lbl" data-t="st_pct"></div></div>
+            <div class="stat"><div class="num" id="sDonors">0</div><div class="lbl" data-t="st_people"></div></div>
+            <div class="stat"><div class="num" id="sPixels">0</div><div class="lbl" data-t="st_pixels"></div></div>
+            <div class="stat"><div class="num" id="sSum">0</div><div class="lbl" data-t="st_sum"></div></div>
+            <div class="stat"><div class="num" id="sCountries">0</div><div class="lbl" data-t="st_countries"></div></div>
+          </div>
+          <div class="small" style="margin-top:10px" data-t="st_hint"></div>
+        </div>
+        <div class="card">
+          <div class="row between"><h3 style="margin:0" data-t="newest"></h3><button class="btn small ghost" data-go="welt" data-t="all"></button></div>
+          <ul class="feed" id="feedHome"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAUSI -->
+  <section class="view" id="v-tausi">
+    <div class="two">
+      <div class="card tausi-card">
+        <div class="tausi-bg">
+          <canvas id="bildBlur"></canvas>
+          <div class="tausi-top">
+            <div class="stage-name"><span class="brandName">Tausi</span><small id="wStage"></small></div>
+            <span class="ki-badge">✦ <span data-t="ki_badge"></span></span>
+          </div>
+          <div class="bubble-row"><div class="bubble off" id="bubble">…</div></div>
+          <div class="canvas-wrap"><canvas id="wesen" aria-label="Tausi"></canvas></div>
+        </div>
+        <div class="tausi-foot">
+          <div class="row between small" style="margin-bottom:6px"><span id="nextLbl"></span></div>
+          <div class="progress"><i id="stageBar"></i></div>
+          <div class="steps" id="steps"></div>
+          <div class="meters">
+            <div class="meter hunger"><div class="row"><span>🍽 <span data-t="hunger"></span></span><span class="val" id="hungerVal">0 %</span></div><div class="progress"><i id="hungerBar"></i></div></div>
+            <div class="meter joy"><div class="row"><span>💫 <span data-t="joy"></span></span><span class="val" id="joyVal">0 %</span></div><div class="progress"><i id="joyBar"></i></div></div>
+          </div>
+          <div class="mood"><span data-t="mood"></span>: <b id="moodTxt"></b></div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2 data-t="tausi_title"></h2>
+          <div class="sub" data-t="tausi_about"></div>
+          <button class="btn main block" style="margin-top:14px" data-act="set">🎨 <span data-t="cta"></span></button>
+          <button class="btn block" style="margin-top:8px" data-go="spiel">🌧 <span data-t="game_title"></span></button>
+        </div>
+        <div class="card">
+          <h3 data-t="stages_title"></h3>
+          <ol class="sub" id="stageList" style="margin:6px 0 0;padding-inline-start:20px"></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPIEL -->
+  <section class="view" id="v-spiel">
+    <div class="two">
+      <div class="card">
+        <h2 data-t="game_title"></h2>
+        <div class="sub" style="margin-bottom:12px" data-t="game_sub"></div>
+        <div class="game-wrap" id="gameWrap">
+          <canvas id="spiel"></canvas>
+          <div class="game-hud">
+            <span class="hud-pill"><span data-t="game_wish"></span> <i class="wish" id="hudWish"></i></span>
+            <span class="spacer"></span>
+            <span class="hud-pill" id="hudHearts">❤❤❤</span>
+            <span class="hud-pill"><span id="hudScore">0</span></span>
+            <span class="hud-pill">⏱ <span id="hudTime">60</span></span>
+          </div>
+          <div class="game-over" id="gameOver">
+            <div style="font-size:44px">🌧🎨</div>
+            <div class="big hidden" id="goScore">0</div>
+            <div class="sub" id="goText"></div>
+            <button class="btn main" id="gameStart" style="padding:14px 28px;font-size:17px" data-t="game_start"></button>
+            <div class="small" data-t="game_hint"></div>
+          </div>
+        </div>
+        <div class="small" style="margin-top:10px" data-t="game_note"></div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="row between"><h3 style="margin:0" data-t="tasks"></h3><span class="stars" id="starsTxt"></span></div>
+          <ul class="tasks" id="taskList" style="margin-top:8px"></ul>
+          <div class="small" style="margin-top:8px" data-t="star_reward"></div>
+        </div>
+        <div class="card">
+          <div class="row between"><span class="sub" data-t="game_best"></span><b id="bestTxt" style="font-family:var(--serif);font-size:24px">0</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WELT -->
+  <section class="view" id="v-welt">
+    <div class="two wide-left">
+      <div>
+        <div class="card">
+          <h2 data-t="world_title"></h2>
+          <div class="sub" style="margin-bottom:12px" data-t="world_sub"></div>
+          <svg id="map" viewBox="0 0 360 150" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="small" style="margin-top:8px" data-t="world_privacy"></div>
+        </div>
+        <div class="card">
+          <h3 data-t="msgs"></h3>
+          <ul class="feed" id="feedAll"></ul>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2 data-t="contest"></h2>
+          <div class="seg" id="rankSeg"><button class="on" data-r="pct" data-t="r_pct"></button><button data-r="abs" data-t="r_abs"></button></div>
+          <ol class="rank" id="rankList"></ol>
+          <div class="small" style="margin-top:8px" data-t="rank_note"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ICH -->
+  <section class="view" id="v-ich">
+    <div class="two">
+      <div>
+        <div class="card balance">
+          <div class="sub" data-t="my_stock"></div>
+          <div class="big" id="balBig">0</div>
+          <div class="sub" style="margin-top:6px" data-t="stock_sub"></div>
+          <button class="btn main" style="margin-top:16px" data-act="set">🎨 <span data-t="cta"></span></button>
+        </div>
+        <div class="card">
+          <h2 data-t="buy_title"></h2>
+          <div class="sub" style="margin-bottom:18px" data-t="buy_sub"></div>
+          <div class="packs" id="packs"></div>
+          <button class="btn main block" style="margin-top:16px" id="buyBtn" data-t="next"></button>
+          <div class="small" style="margin-top:10px;text-align:center"><a href="#" id="firmaLink" data-t="company"></a></div>
+        </div>
+        <div class="card">
+          <div class="info-box" data-t="why"></div>
+          <div class="warn-box" style="margin-top:10px" data-t="probe_box"></div>
+          <div class="small" style="margin-top:10px" data-t="rules"></div>
+        </div>
+        <div class="card">
+          <h3 data-t="history"></h3>
+          <ul class="hist" id="hist"></ul>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2 data-t="share"></h2>
+          <div class="sub" style="margin-bottom:12px" data-t="share_sub"></div>
+          <textarea class="share-text" id="shareText" readonly></textarea>
+          <div class="row" style="margin-top:10px;flex-wrap:wrap">
+            <button class="btn main" id="copyShare">📋 <span data-t="copy"></span></button>
+            <button class="btn" id="nativeShare">↗ <span data-t="share_btn"></span></button>
+          </div>
+        </div>
+        <div class="card">
+          <h3 data-t="settings"></h3>
+          <label class="f" for="setName" data-t="my_name"></label>
+          <input class="inp" id="setName" maxlength="24">
+          <label class="f" for="setLand" data-t="my_country"></label>
+          <select class="inp" id="setLand"></select>
+          <label class="f" for="setLang" data-t="language"></label>
+          <select class="inp" id="setLang"></select>
+          <label class="check" style="margin-top:14px"><input type="checkbox" id="setDemo"> <span data-t="demo"></span></label>
+          <button class="btn small danger" id="resetAll" style="margin-top:6px" data-t="reset"></button>
+        </div>
+        <div class="card">
+          <h3 data-t="legal"></h3>
+          <div class="legal-links"><a href="impressum.html" data-t="impressum"></a><a href="datenschutz.html" data-t="privacy"></a><a href="pixel-bedingungen.html" data-t="terms"></a></div>
+          <div class="small" style="margin-top:6px" id="legalLang"></div>
+        </div>
+        <div class="small" style="text-align:center;margin:10px 0 20px" id="versionInfo"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><a href="impressum.html" data-t="impressum"></a>·<a href="datenschutz.html" data-t="privacy"></a>·<a href="pixel-bedingungen.html" data-t="terms"></a><div style="margin-top:6px" data-t="footer"></div></footer>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-go="bild"><span class="ic">🖼️</span><span data-t="tab_bild"></span></button>
+  <button data-go="tausi"><span class="ic">🐣</span><span>Tausi</span></button>
+  <button data-go="spiel"><span class="ic">🎮</span><span data-t="tab_spiel"></span></button>
+  <button data-go="welt"><span class="ic">🌍</span><span data-t="tab_welt"></span></button>
+  <button data-go="ich"><span class="ic">👤</span><span data-t="tab_ich"></span></button>
+</nav>
+
+<div class="sheet hidden" id="sheet"><div class="sheet-bg" id="sheetBg"></div><div class="sheet-panel"><button class="sheet-x" id="sheetX" aria-label="✕">✕</button><div id="sheetBody"></div></div></div>
+<div id="toast"></div>
+
+<script src="texte.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
